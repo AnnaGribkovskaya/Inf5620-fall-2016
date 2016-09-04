@@ -88,3 +88,42 @@ def demo(beta,theta):
 
 if __name__=="__main__":    
     demo(0.9,30)
+def test_vertical_motion(dt=2*pi*0.0001,tol=10**(-5)):
+    """
+    Testing that vertical motion corrosponds with exact solution.
+    when Theta=0, epsilon in (0,1), we get pure vertical motion 
+    satisfying y'' = -(beta/(1 - beta)y, which has exact solution
+    y(t)=Icos(wt), I = -epsilon, and w = sqrt(beta/(1 - beta)). This
+    is used to show that simulate is good.
+
+    I set tollerance for my test case to be 10**(-5), this depends
+    on size of dt.
+    """
+
+    
+    
+    #test for diffrent epsilons and betas.
+    Beta_and_eps=[0.1,0.4,0.7,0.9]
+    
+    #find timsteps_per_period with dt
+    n= int(round(2*pi/dt))
+
+    #loop throgh diffrent testing values.
+    for eps in Beta_and_eps:
+        for beta in Beta_and_eps:
+            
+            #solve the equation
+            x,y,tet,t = simulate(beta,0,eps,1,n,False)
+            
+            #create exact solution
+            w = sqrt(beta/(1 - beta))
+            I = -eps    
+            y_exact = I*cos(w*t)
+
+            
+            #calculate l2 error of exact solution minus 
+            #numerical solution.
+            l2_error= sqrt(dt*sum((y-y_exact)**2))
+            
+            #check if l2 norm is less then tolerence.    
+            assert l2_error<tol
