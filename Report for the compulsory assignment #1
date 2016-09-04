@@ -11,6 +11,7 @@
    \end{center}
    \vspace*{\stretch{2.0}}
 \end{titlepage}
+
 \part*{Problem 1: Use linear/quadratic functions for verification}
 \section*{a) Derive the equation for the first time step} 
 The problem is formulated as follows
@@ -65,81 +66,22 @@ Now we can calculate R:
 R=[D_{t}D_{t}(u)]_{(n)}-u(t(n))?f(t(n))-u(t(n))=0 \ \textrm{sinse} \ u^{''}(t)=0
 \]
 
-\section*{ c)}
-In this part we are using symbolic python to calculate 
-\begin{lstlisting}
-V, t, I, w, dt = sym.symbols('V t w dt') # global symbols
-f = None # global variable for the sourse term in the ODE
+\section*{ c) - e)}
+In this parts we are using symbolic python to calculate. 
+Solution in code.
 
-def ode_source_term(u):
-    """
-    Return the terms in the ODE that the source term
-    must balance, here m*u'' + f(u') + c*u.
-    u is a symbolic Python function of t.
-    damping in our case is zero, so we do not include it.
-    """
-        return sym.diff(u(t), t, t) + w**2*u(t)
-  
-def residual_discrete_eq(u):
-    """
-    Return the residual of the discrete eq. with u inserted.
-    """
-    R = DtDt(u, dt) + w**2*u(t) - f
-    return sym.simplify(R)
 
-def residual_discrete_eq_step1(u):
-    """
-    Return the residual of the discrete eq. at the first
-    step with u inserted.
-    """
-    R = 0.5*(2*(u(t+dt) - u(t))/dt + dt*w**2*u(t) - (2*V + dt*f))
-    R = R.subs(t, 0) 
-    """
-    Substitute t with 0.
-    """
-    return sym.simplify(R)
-
-def DtDt(u, dt):
-    """
-    Return second order finite difference for u_tt.
-    u is a symbolic Python function of t.
-    """
-       return (u(t+dt) - 2*u(t) + u(t-dt))/(dt*dt) 
-       
-def main(u):
-    """
-    Given some chosen solution u (as a function of t, implemented
-    as a Python function), use the method of manufactured solutions
-    to compute the source term f, and check if u also solves
-    the discrete equations.
-    """
-print '=== Testing exact solution: %s ===' % u(t)
-print "Initial conditions u(0)=%s, u'(0)=%s:" % \
-          (u(t).subs(t, 0), sym.diff(u(t), t).subs(t, 0))
-
-    # Method of manufactured solution requires fitting f
-    global f  # source term in the ODE
-    f = sym.simplify(ode_source_term(u))
-    
-    # Residual in discrete equations (should be 0)
-    print 'residual step1:', residual_discrete_eq_step1(u)
-    print 'residual:', residual_discrete_eq(u)
-
-def linear():
-    main(lambda t: V*t + I)
-    sys.exit("Run quad() in stead of linear if you want numerical solution and plot!")
-\end{lstlisting}
-\begin{lstlisting}
-
-V, t I,w,dt = sym.symbols('V t w dt') #global symbols
-f = None # global variable for the sourse term in the ODE
-def ode_source_term(u):
-    """Return the terms in the ODE that the source term
-    must balance, here m*u'' + f(u') + c*u.
-    u is a symbolic Python function of t.
-    damping in our case is zero, so we do not include it."""
-return sym.diff(u(t), t, t) + w**2*u(t)
-
-\end{lstlisting}
 \part*{Exercise 21}
+\section*{ a) and b)}
+Solution in the code.
+\section*{ c)}
+We consider now pure vertical motion of the elastic pendulum. Thi means that $ x(t)=0 $. 
+\[y''=-\frac{\beta(y-1)}{1-\beta}(1-\frac{\beta}{|y-1|})-\beta \]
+For $(y-1)<0$ we get:
+\[y''=-\frac{\beta}{1-\beta}(y-1+\beta)-\beta= -y\frac{\beta}{1-\beta}\]
+Let's now consider initial conditions: 
+\[x(0)=0, \  \Theta = 0 
+\Rightarrow y(0)=1-(\epsilon +1)cos(\Theta)=-\epsilon\] 
+This means that the exact solution to the vertical motion is $$y(t)=-\epsilon \cos(\sqrt{\frac{\beta}{1-\beta}}t)$$ With requirement $|\epsilon|<1$. 
+\section*{ d)} Solution in code.
 \end{document}
