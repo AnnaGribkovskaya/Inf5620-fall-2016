@@ -1,13 +1,15 @@
 \documentclass[11pt]{report}
 \usepackage{mathtools}
 \usepackage{listings}
-\title{Compulsory assignment#1}
-
-\author{Anna Gribkovskaya}
-
-\maketitle
 \begin{document}
-
+\begin{titlepage}
+   \vspace*{\stretch{1.0}}
+   \begin{center}
+      \Large\textbf{Compulsory Assignment 1}\\
+      \large\textit{Anna Gribkovskaya}
+   \end{center}
+   \vspace*{\stretch{2.0}}
+\end{titlepage}
 \part{Problem 1: Use linear/quadratic functions for verification}
 \chapter{Part a). Derive the equation for the first time step}
 The problem is formulated as follows
