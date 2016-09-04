@@ -1,52 +1,56 @@
-import numpy
-from numpy import * # this syntax takes all definitions from the numpy and places them into current namespace, no need to put np. in front of numpy definition
+from numpy import * #syntax takes all definitions from the numpy and places them into current namespace, no need to put np. in front of numpy definition
 import matplotlib.pyplot as plt
-from matlotlib.pyplot import animation
 
-def simulate(
-    beta=0.9,                 # dimensionless parameter
-    Theta=9,                  # initial angle in degrees
-    epsilon=0,                # initial stretch of wire
-    num_periods=6,            # simulate for num_periods
-    time_steps_per_period=60, # time step resolution
-    plot=True,                # make plots or not
-    ):
+from matplotlib import animation
 
-N=num_periods * time_steps_per_period   # number of timesteps
-dt=float(2*pi)/time_steps_per_period    # value of timestep
-Rad=pi*Theta/180 			# convert to radians
-B=beta/(1-beta)                         # new variable for convinience
+ 
+def simulate(beta=0.9,Theta=30,epsilon=0,num_periods=6,
+             time_steps_per_period=60, plot=True):
+   
 
-    	x=zeroes(n+1) 			        # numpy function that make an array  of zeroes
-	y=zeroes(n+1)
-	theta1=zeroes(n+1)
-	t=linspace(0, dt*n, n+1)        	# numpy function that return evenly spaced numbers over a specified interval
+   
+    n = num_periods * time_steps_per_period 	#number of timesteps
+    
+    dt = float(2*pi)/time_steps_per_period	#timestep
+   
+    rad_Theta = pi*Theta/180.                   #convert to radians
+    
+    
+    K = beta/(1 - beta)                    	#help variable
+                                             
 
-x[0]=(1+epsilon)*sin(Rad)			#initial conditions
-y[0]=1-(1+epsilon)*cos(Rad)
-
-x[0]=(1+epsilon)*sin(Rad)		#initial conditions
-y[0]=1-(1+epsilon)*cos(Rad)
-
-L = sqrt(x[0]**2 + (y[0] - 1)**2)
-B2 = (1 - beta/L)*B2			# new help variable
-
-	x[1] = x[0]*(1 - 0.5*B2*(dt**2))			#
-    	y[1] = y[0] - (y[0] - 1)*B2*0.5*dt**2 - 0.5*beta*dt**2	#
-    	
-    	 #implementation
- for i in range(1,n):
-       
-        L = sqrt(x[i]**2+(y[i] - 1)**2)
-        B2 = (1-beta/L)*B
-
+ 
+    x=zeros(n+1)
+    y=zeros(n+1)
+    tet=zeros(n+1)
+    t=linspace(0,dt*n,n+1)
+    
+    
+    
+    x[0] = (1+epsilon)*sin(rad_Theta)		# First initial condition
+    
+    y[0] = 1 - (1 + epsilon)*cos(rad_Theta)
+    
+    
+    
+    L = sqrt(x[0]**2 + (y[0] - 1)**2)		
+    K2 = (1 - beta/L)*K				#New help variable
+    
   
-        x[i+1] = x[i]*(2 - B2*dt**2) - x[i-1]			 
-        y[i+1] = 2*y[i] -(y[i]-1)*B2*dt**2 -y[i-1] - beta*dt**2
+  
+    x[1] = x[0]*(1 - 0.5*K2*(dt**2))				#First timestep
+    y[1] = y[0] - (y[0] - 1)*K2*0.5*dt**2 - 0.5*beta*dt**2
 
-#theta variable as function of time calculated
-    theta1=arctan(x/(1 - y))
+ #implementation
+   
+    for i in range(1,n):
 
+        L = sqrt(x[i]**2+(y[i] - 1)**2)
+        K2 = (1-beta/L)*K
+        x[i+1] = x[i]*(2 - K2*dt**2) - x[i-1]
+        y[i+1] = 2*y[i] -(y[i]-1)*K2*dt**2 -y[i-1] - beta*dt**2
+        tet=arctan(x/(1 - y)) # Theta as function of time
+    
  #plotting 
     if plot:
         plt.figure()
@@ -57,10 +61,30 @@ B2 = (1 - beta/L)*B2			# new help variable
         plt.ylabel('y')
         
         plt.figure()
-        plt.plot(t, theta1*180/pi)
+        plt.plot(t, tet*180/pi)
         plt.title('Angle in degrees')
         plt.xlabel('t')
-        plt.ylabel('theta1')
+        plt.ylabel('tet')
 
         plt.show()
+        
+        if Theta<10:
+            non_elastic = Theta*cos(t)
+            plt.figure()
+            plt.plot(t, tet*180/pi, '-b')
+            plt.plot(t, non_elastic, 'r')
+            plt.show()
+    return x,y,tet,t
 
+
+
+def demo(beta,theta): 
+  
+    x,y,t,tet = simulate(beta, theta, 0, 3, 600, True)	#  simulate and make plots for 3 periods
+
+
+    
+    
+
+if __name__=="__main__":    
+    demo(0.9,30)
