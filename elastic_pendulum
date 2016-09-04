@@ -1,4 +1,4 @@
-import numpy as np
+import numpy
 from numpy import * # this syntax takes all definitions from the numpy and places them into current namespace, no need to put np. in front of numpy definition
 import matplotlib.pyplot as plt
 from matlotlib.pyplot import animation
@@ -12,5 +12,6 @@ def simulate(
     plot=True,                # make plots or not
     ):
 
-N=num_periods * time_steps_per_period #number of timesteps
-dt=float(2*pi)/time_steps_per_period  #value of timestep
+N=num_periods * time_steps_per_period   # number of timesteps
+dt=float(2*pi)/time_steps_per_period    # value of timestep
+Rad=pi*Theta/180 			            # convert to radians
