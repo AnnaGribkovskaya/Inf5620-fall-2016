@@ -17,10 +17,11 @@ dt=float(2*pi)/time_steps_per_period    # value of timestep
 Rad=pi*Theta/180 			# convert to radians
 B=beta/(1-beta)                         # new variable for convinience
 
-    x=zeroes(n+1) 			        # numpy function that make an array  of zeroes
+    	x=zeroes(n+1) 			        # numpy function that make an array  of zeroes
 	y=zeroes(n+1)
-	z=zeroes(n+1)
+	theta1=zeroes(n+1)
 	t=linspace(0, dt*n, n+1)        	# numpy function that return evenly spaced numbers over a specified interval
+
 x[0]=(1+epsilon)*sin(Rad)			#initial conditions
 y[0]=1-(1+epsilon)*cos(Rad)
 
