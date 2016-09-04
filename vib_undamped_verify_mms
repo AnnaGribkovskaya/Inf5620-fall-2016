@@ -6,9 +6,9 @@ V, t, I, w, dt = sym.symbols('V t I w dt')  	# global symbols
 f = None 					# global variable for the source term in the ODE
 
 def ode_source_term(u):
-    """Return the terms in the ODE that the source term
-    must balance, here u'' + w**2*u.
+    """Return the terms in the ODE that the source term must balance.
     u is symbolic Python function of t."""
+    
     return sym.diff(u(t), t, t) + w**2*u(t)
 
 def residual_discrete_eq(u):
@@ -17,8 +17,7 @@ def residual_discrete_eq(u):
     return sym.simplify(R)
 
 def residual_discrete_eq_step1(u):
-    """Return the residual of the discrete eq. at the first
-    step with u inserted."""
+    """Return the residual of the discrete eq. at the first step with u inserted."""
     R = 0.5*(2*(u(t+dt) - u(t))/dt + dt*w**2*u(t) - (2*V + dt*f))
     R = R.subs(t, 0) 				# Substitute t with 0
     return sym.simplify(R)
