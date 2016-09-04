@@ -1,6 +1,7 @@
-\documentclass[11pt]{report}
+\documentclass[10pt]{article}
 \usepackage{mathtools}
 \usepackage{listings}
+
 \begin{document}
 \begin{titlepage}
    \vspace*{\stretch{1.0}}
@@ -10,8 +11,8 @@
    \end{center}
    \vspace*{\stretch{2.0}}
 \end{titlepage}
-\part{Problem 1: Use linear/quadratic functions for verification}
-\chapter{Part a). Derive the equation for the first time step}
+\part*{Problem 1: Use linear/quadratic functions for verification}
+\section*{a) Derive the equation for the first time step} 
 The problem is formulated as follows
 
 \[u^{''}+\omega^{2}*U=F(t)\]
@@ -40,7 +41,7 @@ Now we can derive the equation for the first timestep $  u(n=1)$. In order to do
 u(-1)=u(1) -2dtV \ \textrm{and} \ u(1)=\dfrac{(2-(\omega dt)^{2})I +fdt^{2}+2dtV}{2}
 \]
 
-\chapter{Part b). Use the method of manufactured solutions}
+\section*{b) Use the method of manufactured solutions}
 
 In this part we are using the method of manufactoring solutions for the verification purporses. The exact solution is chosen in a form of $ u_{e}(x,t)=ct+d $ Initial conditions are used to find restrictions on c and d. 
 \[
@@ -64,7 +65,7 @@ Now we can calculate R:
 R=[D_{t}D_{t}(u)]_{(n)}-u(t(n))?f(t(n))-u(t(n))=0 \ \textrm{sinse} \ u^{''}(t)=0
 \]
 
-\chapter{Part c}
+\section*{ c)}
 In this part we are using symbolic python to calculate 
 \begin{lstlisting}
 V, t, I, w, dt = sym.symbols('V t w dt') # global symbols
@@ -140,5 +141,5 @@ def ode_source_term(u):
 return sym.diff(u(t), t, t) + w**2*u(t)
 
 \end{lstlisting}
-
+\part*{Exercise 21}
 \end{document}
