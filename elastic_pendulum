@@ -23,3 +23,12 @@ B=beta/(1-beta)                         # new variable for convinience
 	t=linspace(0, dt*n, n+1)        	# numpy function that return evenly spaced numbers over a specified interval
 x[0]=(1+epsilon)*sin(Rad)			#initial conditions
 y[0]=1-(1+epsilon)*cos(Rad)
+
+x[0]=(1+epsilon)*sin(Rad)		#initial conditions
+y[0]=1-(1+epsilon)*cos(Rad)
+
+L = sqrt(x[0]**2 + (y[0] - 1)**2)
+B2 = (1 - beta/L)*B2			# new help variable
+
+	x[1] = x[0]*(1 - 0.5*B2*(dt**2))			#
+    	y[1] = y[0] - (y[0] - 1)*B2*0.5*dt**2 - 0.5*beta*dt**2	#
