@@ -65,7 +65,7 @@ print "Initial conditions u(0)=%s, u'(0)=%s:" % \
 def linear():
     main(lambda t: V*t + I)
     sys.exit("Run quad() in stead of linear if you want numerical solution and plot!")
-
+    
 #Problem 1, part d) quadratic function
 
 def quad(a,b,c):
