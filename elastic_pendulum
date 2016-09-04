@@ -15,3 +15,4 @@ def simulate(
 N=num_periods * time_steps_per_period   # number of timesteps
 dt=float(2*pi)/time_steps_per_period    # value of timestep
 Rad=pi*Theta/180 			            # convert to radians
+B=beta/(1-beta)                         # new variable for convinience
