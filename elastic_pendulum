@@ -43,3 +43,24 @@ B2 = (1 - beta/L)*B2			# new help variable
   
         x[i+1] = x[i]*(2 - B2*dt**2) - x[i-1]			 
         y[i+1] = 2*y[i] -(y[i]-1)*B2*dt**2 -y[i-1] - beta*dt**2
+
+#theta variable as function of time calculated
+    theta1=arctan(x/(1 - y))
+
+ #plotting 
+    if plot:
+        plt.figure()
+        plt.gca().set_aspect('equal')
+        plt.plot(x,y)
+        plt.title('Motion of pendulum')
+        plt.xlabel('x')
+        plt.ylabel('y')
+        
+        plt.figure()
+        plt.plot(t, theta1*180/pi)
+        plt.title('Angle in degrees')
+        plt.xlabel('t')
+        plt.ylabel('theta1')
+
+        plt.show()
+
