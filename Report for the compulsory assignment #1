@@ -82,6 +82,7 @@ For $(y-1)<0$ we get:
 Let's now consider initial conditions: 
 \[x(0)=0, \  \Theta = 0 
 \Rightarrow y(0)=1-(\epsilon +1)cos(\Theta)=-\epsilon\] 
-This means that the exact solution to the vertical motion is $$y(t)=-\epsilon \cos(\sqrt{\frac{\beta}{1-\beta}}t)$$ With requirement $|\epsilon|<1$. 
+The exact solution to the vertical motion is 
+\[y(t)=-\epsilon \cos(\sqrt{\frac{\beta}{1-\beta}}t), \ |\epsilon|<1. \]
 \section*{ d)} Solution in code.
 \end{document}
