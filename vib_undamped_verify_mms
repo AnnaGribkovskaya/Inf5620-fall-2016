@@ -2,3 +2,12 @@ import sys
 import sympy as sym
 import numpy as np
 import matploylib.pyplot as plt
+V, t I,w,dt = sym.symbols('V t w dt') #global symbols
+f = None # global variable for the sourse term in the ODE
+def ode_source_term(u):
+    """Return the terms in the ODE that the source term
+    must balance, here m*u'' + f(u') + c*u.
+    u is a symbolic Python function of t.
+    damping in our case is zero, so we do not include it."""
+        return sym.diff(u(t), t, t) + w**2*u(t)
+  
